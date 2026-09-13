@@ -1,438 +1,242 @@
-# Travel Planner Hackathon - Ideation Record
+# Senior Travel Companion
 
-> Status: prototype-phase concept exploration. This document records the ideas discussed so the team can compare them before selecting the final product direction.
+A travel assistance app for adult children who cannot personally accompany their older parents on a trip.
 
-## 1. Challenge Context
+This document covers **2. Ideation & Process** and **3. Design & Prototype** from the Submission Template. The product capabilities remain proposals; Section 3 presents a working interface prototype with simulated data. It has not yet been validated with older users.
 
-Trip planning is fragmented across booking platforms, maps, budgeting tools, itineraries, and group chats. Travellers have different budgets, schedules, interests, dietary requirements, mobility needs, and travel styles. These differences become harder to coordinate in a group, and an itinerary can quickly become unusable when weather, delays, closures, or personal needs change.
+**Review the design:** [Design and prototype](#3-design--prototype) · [Key screens](#key-screens) · [Reviewer walkthrough](#reviewer-walkthrough)
 
-The hackathon challenge asks for a solution that helps travellers plan from start to finish, including budgeting, itinerary creation, group preference coordination, and adjustment when plans change.
+## 2. Ideation & Process
 
-## 2. Initial Problem Statement
+### Product Direction and Target Users
 
-Travel information is widely available, but most recommendations are generic and do not precisely match a particular traveller or group. Students, couples, families, and friend groups have different constraints and expectations. Existing planning processes also become stressful when information is scattered across applications or when a change forces the organiser to rebuild the itinerary manually.
+We want to help adult children support their parents before and during a trip, even when they cannot travel together. Children can help choose suitable arrangements, understand the daily itinerary, and respond when their parents are running late, need rest, or request assistance. Parents may join an organised tour or travel independently.
 
-## 3. Ideas Discussed
+| Role | Position | Core Needs |
+| --- | --- | --- |
+| Adult children | Primary users and intended payers | Help select suitable itineraries, understand trip progress, and know how to assist when plans change. |
+| Parents aged 60 and above | End users and actual travellers | Understand what to do next, check in or request help easily, and control what information they share. |
+| Authorised family members or local contacts | Supporting users, such as siblings, accompanying relatives, or tour organisers | View permitted information and help with communication or issues at the destination. |
 
-The creativity scores below are internal estimates based only on the hackathon's 15-point Creativity and Novelty category. They are not official judging scores.
+A **Trusted Companion** is a contact authorised by the parent. This person may be an adult child helping remotely or someone travelling with the parent. The app must distinguish these roles: it cannot assume that a child is physically present, and creating a trip does not automatically grant access to a parent's location.
 
-| Idea | Main concept | Originality /7 | Novel features /5 | Differentiation /3 | Estimated total /15 | Decision |
-|---|---|---:|---:|---:|---:|---|
-| A. Personalized AI Travel Planner | Generate an itinerary from a user's target group, budget, interests, and natural-language request | 2 | 1 | 1 | **4** | Drop as the headline; retain as basic infrastructure |
-| B. Conversational Replanner | Let users modify an itinerary through natural language when their plans change | 2 | 2 | 1 | **5** | Retain as supporting functionality |
-| C. AI Group-Chat Summarizer | Provide a Discord-style trip discussion where AI records the conversation, summarizes preferences, and generates a group itinerary | 2 | 2 | 1 | **5** | Do not use alone; close competitors already exist |
-| D. Living Trip Memory | Convert chat messages into confirmed constraints, preferences, decisions, rejected suggestions, unresolved questions, and booking commitments | 3 | 3 | 2 | **8** | Retain as a supporting system |
-| E. TripPact / Trip Constitution | Detect conflicts between group members, explain trade-offs, facilitate voting, and produce a fair itinerary | 3 | 3 | 1 | **7** | Retain selected mechanics; do not use as the sole novelty |
-| F. Minimum-Disruption Replanning | Change only the affected parts of a trip while preserving bookings, budget limits, hard constraints, and must-have activities | 3 | 3 | 2 | **8** | Retain for the disruption prototype flow |
-| G. ParallelTrip | Generate synchronized subgroup itineraries so members can separate for incompatible activities and reunite at optimized anchor points | 6 | 5 | 3 | **14** | **Chosen as the core concept** |
+**Core question:** How might we help older parents understand and manage their trip while enabling useful remote support from their adult children, with parents remaining in control of their information and decisions?
 
-## 4. Idea A - Personalized AI Travel Planner
+Our initial problem hypotheses concern whether itineraries suit parents' stamina and preferences, whether complex schedules are difficult to follow, whether families need to repeatedly ask for updates, and whether changes are difficult to communicate. These hypotheses require interviews with parents and adult children.
 
-### Concept
+### 2.1 Ideas We Considered
 
-The user describes a destination, budget, dates, group type, interests, and preferred travel style. AI generates a suitable itinerary.
+The initial draft explored general travel planning, ParallelTrip group itineraries, and a senior companion mode. Our current direction centres on Senior Travel Companion, retaining capabilities that directly support parents travelling and families helping remotely. The decisions below reflect this proposed scope.
 
-### Proposed features
+| Idea | Decision | Reason for Keeping, Adapting, or Deferring |
+| --- | --- | --- |
+| **Parent travel with remote family support (Chosen)** | Core direction | Serves families who cannot travel together, connecting preparation, trip awareness, and assistance when something changes. |
+| **Shared family trip space and authorised contacts (Chosen)** | Keep | Connects parents, children, and relevant contacts to one itinerary, with roles and information permissions managed separately. |
+| **AI requirement extraction with user confirmation (Chosen)** | Keep | Organises budget, interests, dietary needs, walking limits, and rest preferences from discussions. Users confirm, edit, or reject suggestions before they become decisions. |
+| **Living Trip Memory (Chosen)** | Keep and focus | Distinguishes tentative suggestions, confirmed preferences, hard constraints, rejection reasons, and booked arrangements so revisions respect prior decisions. |
+| **Suitable itinerary selection and feasibility checks (Chosen)** | Adapt | Compares walking demands, rest opportunities, transport, costs, and fixed times. For organised tours, focuses on understanding the existing schedule and identifying details to confirm. |
+| **Simplified itinerary for parents (Chosen)** | Keep | Highlights the next activity, departure or meeting time, estimated walking time, and clear actions for checking in, requesting help, and contacting family. |
+| **Consent-based status and location sharing (Chosen)** | Keep | Parents choose recipients, location precision, and sharing duration, and can stop sharing. Remote assistance relies on explicit permission. |
+| **Check-ins and contextual trip status (Chosen)** | Keep | Communicates arrival, wellbeing, delays, or requests for help, with timestamps that make updates understandable. |
+| **Help requests and contact actions (Chosen)** | Keep | Lets parents quickly request assistance while authorised contacts see relevant itinerary details and permitted location information. |
+| **Route deviation and unavailable location explanations (Chosen)** | Keep for prototype demonstration | Distinguishes possible deviation, stale data, and unavailable location. Simulated GPS can demonstrate the interaction and test how families interpret it. |
+| **Minimal-change replanning with before-and-after comparison (Chosen)** | Adapt | Changes affected activities when parents are tired, delayed, or affected by rain, while aiming to preserve bookings, pickups, and meeting times. Users review changes before confirming. |
+| Itinerary and check-in reminders | Secondary priority | May reduce forgotten activities or updates. Local reminders can follow once the core journey works. |
+| Basic budget tracking and transport cost estimates | Secondary priority | Supports itinerary decisions, but detailed expense management is outside the core scope. Costs must be labelled as estimates. |
+| Separate general travel and senior modes | Defer | Focuses the initial experience on one clear family use case. |
+| ParallelTrip automatic grouping, Fork Windows, multiple Parallel Tracks, and reunion-point optimisation | Defer | Primarily addresses different interests within groups travelling together. The current use case needs fixed meeting arrangements without depending on parallel group planning. |
+| Mandatory accompanying companion for every older traveller | Adapt to individual trip needs | Independent travel is part of the target scenario. Where in-person support is needed, an actual accompanying contact must be arranged rather than assumed. |
+| Parallel Story, branching timelines, What You Missed, and shared travel stories | Defer | These support memories and sharing; they can be reconsidered after the remote assistance experience is validated. |
+| Public social platform, real payments, hotel and flight booking, and full WhatsApp integration | Exclude from this phase | Adds substantial business and integration scope before the value of family travel assistance has been tested. |
+| Automatic emergency dispatch, ambulance calls, medical monitoring, and fall detection | Exclude from product promises | The concept provides travel information, help requests, and contact options. It does not promise automatic rescue or medical assessment. |
 
-- Personalized itinerary generation
-- Student, couple, family, or solo profiles
-- Budget and activity suggestions
-- Natural-language input
-- Map with distance, price, and ETA
-- Trip reminders
-- Natural-language itinerary editing
+#### How the Core Experience Connects
 
-### Strengths
+**Before the trip: agree on suitable arrangements.** Adult children help create a trip with its destination, dates, budget, and members. Together with their parents, they confirm interests, dietary needs, walking limits, and rest preferences. AI presents extracted requirements for confirmation before using them in itinerary suggestions. For an organised tour, the family records the existing itinerary and fixed meeting points. For independent travel, the app can propose itineraries for comparison. Budget or timing conflicts should come with understandable alternatives for users to choose from.
 
-- Directly addresses the challenge statement
-- Easy for users and judges to understand
-- Feasible to demonstrate in a prototype
+**During the trip: parents know what comes next, and children understand the current situation.** The parent's view highlights the next activity, departure or meeting time, and estimated walking time. Actions include "I have arrived", "I am okay", "I am running late", "I need help", and "Call trusted companion". The child's view shows itinerary progress, the latest check-in, update times, and items needing attention. Location appears only within the parent's permissions.
 
-### Weaknesses
+**When plans change: understand the situation and agree on an adjustment.** Parents can report fatigue, delays, or a need for help. The app uses the itinerary to suggest options such as taking a rest, contacting the tour organiser, or returning to a meeting point. It explains changes to activities, walking, estimated costs, and timing before users confirm. Changes affecting an organised tour require coordination with the organiser; editing the app's itinerary does not mean the tour has accepted the change.
 
-- AI itinerary generation is already common
-- Broad personas create a weak target-market story
-- Maps, reminders, prices, and chat editing are expected features rather than a defining innovation
-- It would be difficult to explain why users should choose it instead of Trip.com or another established planner
+#### Consent and Meaningful Status Information
 
-### Decision
+- Parents choose trusted contacts and whether to share status only, approximate location, or precise location. Sharing can be limited to the trip or triggered by route deviation, and parents can stop it.
+- "On track", "Check-in due", "Possibly off route", "Running late", "Help requested", and "Location unavailable" represent different situations. Missing location updates must not automatically be interpreted as danger.
+- Every status shows its last update time. Causes such as lost connectivity, unavailable GPS, low battery, or stopped sharing are identified only when supported by available information. Otherwise, the app states that the cause is unknown or the data is stale.
+- A help request shows the current itinerary, next meeting point, and last known location when available and authorised. Contact options help the family act without implying that emergency services have been notified or dispatched.
+- Suggested routes may prioritise shorter walks, rest stops, fewer stairs, and nearby toilets. Accessibility information must include its source or be marked as requiring confirmation; AI inference alone cannot guarantee accessibility.
 
-Do not present this as the innovation. These capabilities can support the final product, but they cannot be its main selling point.
+### 2.2 Ideation Boards
 
-## 5. Idea B - Conversational Replanner
+The following diagrams organise the draft ideas and current product direction. They illustrate the proposed concept and user journey rather than completed workshops or user testing. Both diagrams are embedded in this Markdown file using Mermaid.
 
-### Concept
+#### From Initial Ideas to a Focused Concept
 
-Users modify the plan through natural language, for example:
-
-> It started raining. Move the outdoor activities to tomorrow, keep tonight's market, and do not exceed RM250 per person.
-
-### Strengths
-
-- Natural interaction during a stressful disruption
-- Demonstrates that the product remains useful after the initial planning stage
-- Can create a strong before-and-after prototype moment
-
-### Weaknesses
-
-- Replanning, weather alternatives, and conversational editing already exist in travel products
-- A completely regenerated itinerary may ignore earlier group decisions
-- Real-time availability and reliable pricing could make the prototype scope unrealistic
-
-### Decision
-
-Retain replanning, but make it preserve decisions and change as little as possible.
-
-## 6. Idea C - AI Group-Chat Summarizer
-
-### Concept
-
-Create a Discord-inspired trip workspace where friends discuss the trip. AI follows the discussion, summarizes it, and generates an itinerary.
-
-### Possible interface
-
-- Trip channels such as `#general`, `#itinerary`, `#expenses`, and `#announcements`
-- Main group conversation
-- AI assistant inside the discussion
-- Live trip-summary panel
-- Shared map and itinerary
-
-### Strengths
-
-- Familiar group interaction
-- Reduces the need to complete long preference forms
-- Preserves context that is normally lost in WhatsApp or another chat application
-
-### Weaknesses
-
-- Several products already turn group chats into itineraries
-- Summarization alone does not resolve disagreements
-- AI may incorrectly treat a casual suggestion as a confirmed decision
-- Copying Discord's appearance too closely could make the product feel derivative
-
-### Decision
-
-The discussion space can be the input experience, but it must not be presented as the central innovation.
-
-## 7. Idea D - Living Trip Memory and Decision Ledger
-
-### Concept
-
-Instead of storing only chat messages, the AI maintains structured group knowledge.
-
-### Information recorded
-
-- Hard constraints that cannot be violated
-- Soft preferences that can be negotiated
-- Each person's must-have activity
-- Confirmed group decisions
-- Ideas still awaiting a decision
-- Rejected ideas and the reason for rejection
-- Bookings that should be locked
-- Budget commitments
-- Unresolved conflicts
-
-### Confirmation rule
-
-The AI should not silently convert every message into a final requirement. It asks for confirmation when meaning matters:
-
-> I interpreted RM250 as Amy's maximum total budget. Should I save it as a hard constraint?
-
-### Value
-
-The itinerary remains connected to the reasons behind it. During replanning, the system knows which decisions must be protected and avoids repeatedly suggesting rejected ideas.
-
-### Decision
-
-Retain this as the intelligence layer behind the chosen concept.
-
-## 8. Idea E - TripPact and the Trip Constitution
-
-### Concept
-
-TripPact acts as a neutral group facilitator. It converts individual requirements into a shared Trip Constitution, detects incompatible requests, and presents understandable compromises.
-
-### Example conflict
-
-```text
-Amy: Maximum budget of RM250
-Ben: Theme park is a must-have
-Estimated plan: RM327 per person
-
-Conflict: the current plan violates Amy's hard budget limit.
+```mermaid
+flowchart TD
+    A[Initial travel app ideas] --> B[General travel planning]
+    A --> C[ParallelTrip group planning]
+    A --> D[Senior companion mode]
+    B --> E[Keep requirement confirmation, trip memory, and conflict checks]
+    C --> F[Defer automatic grouping, parallel routes, and stories]
+    D --> G[Focus on parents travelling with remote family support]
+    E --> G
+    G --> H[Before travel: choose and understand suitable arrangements]
+    G --> I[During travel: simple itinerary, check-ins, and consent]
+    G --> J[When plans change: help, contact, and local adjustments]
 ```
 
-### Example resolution card
+This diagram shows how the broader travel concept narrows to families who cannot travel together. General planning capabilities support the senior experience, while parallel group planning remains deferred.
 
-```text
-A. Keep the theme park: RM327/person
-B. Replace it with a lower-cost activity: RM238/person
-C. Let the group separate temporarily: RM240-RM327/person
+#### Family Support User Journey
+
+```mermaid
+flowchart TD
+    A[Child helps create a trip and connects the parent] --> B[Parent selects trusted contacts and sharing permissions]
+    B --> C[Collect existing itinerary and travel needs]
+    C --> D[AI organises requirements for user confirmation]
+    D --> E[Review tour arrangements or choose an independent itinerary]
+    E --> F[Parent views simplified itinerary]
+    F --> G{Current situation}
+    G -->|Normal progress| H[Parent checks in; child sees permitted status]
+    G -->|Fatigue, delay, or change| I[Suggest an adjustment and explain its effects]
+    G -->|Help requested| J[Notify trusted contact and show available context]
+    G -->|Location not updated| K[Show data timestamp and any confirmed cause]
+    I --> L[User confirms and coordinates with organiser if needed]
+    L --> F
+    H --> F
+    J --> M[Family contacts parent or someone at the destination]
+    K --> M
 ```
 
-The group can vote, confirm the decision, and store its reasoning in the decision ledger.
+The journey distinguishes routine check-ins, changed plans, explicit help requests, and missing location updates. Adult children assist remotely; action at the destination requires contact with the parent or someone physically present.
 
-### Fairness-ledger variation
+#### Example of a Local Itinerary Adjustment
 
-If one member gives up a highly valued activity, future decisions can give additional weight to that member's remaining preferences. This prevents the loudest participant from controlling the whole trip.
+A parent feels tired and wants to rest nearby while keeping a 1:00 PM lunch meeting. The figures below are illustrative values from the concept draft, not verified venue information or live prices.
 
-### Strengths
+| Item | Original Plan | Proposed Adjustment |
+| --- | --- | --- |
+| Activity | Visit a museum | Rest at a nearby cafe; suitability for the parent requires confirmation. |
+| Estimated walking time | 22 minutes | 8 minutes |
+| Estimated activity cost | RM15 | RM12 |
+| Lunch meeting time | 1:00 PM | 1:00 PM, subject to checking transport and arrival time. |
 
-- Tackles disagreement rather than only recommendation
-- Makes AI decisions more transparent
-- Provides a convincing group-planning story
+The app should explain why it suggests the adjustment, which arrangements remain in place, and what still needs confirmation. For organised tours, the family coordinates with the organiser before updating the parent's confirmed itinerary.
 
-### Weaknesses
+#### Initial Prototype Validation
 
-- Newer competitors are beginning to offer AI mediation, constraints, and fair group planning
-- Fairness is subjective and may be difficult to explain clearly
-- Voting can still force every person into one mediocre shared itinerary
+The first prototype should demonstrate one complete trip journey: requirement confirmation, a simplified itinerary, authorised sharing and check-ins, a help request or simulated route deviation, and confirmation of a local adjustment. We will first test whether both generations can understand and use this experience before expanding into budget tools, reminders, or other features.
 
-### Decision
+| Question to Validate | Proposed Method |
+| --- | --- |
+| Can parents independently find their next activity, check in, and request help? | Ask parents to complete specific tasks and observe whether they need explanation or assistance. |
+| Can children distinguish a missed check-in, stale location, and a help request? | Present different status scenarios and ask what each means and what action they would take. |
+| Do parents understand and accept sharing controls? | Ask parents to select recipients, precision, and duration, then stop sharing. |
+| Does AI accurately capture requirements and preserve important constraints? | Use a discussion containing tentative suggestions and confirmed decisions to test confirmation, editing, and replanning. |
+| Does the support model fit both organised tours and independent travel? | Interview families with experience of each, checking which arrangements can change and whom they need to contact. |
+| Would adult children continue using or pay for the app? | Explore travel frequency, current support methods, and willingness to pay. Intended payers are not yet validated customers. |
 
-Keep constraint confirmation, conflict detection, and decision cards. Replace the assumption that every conflict must end in one shared activity.
+### 2.3 Mentor Consultation
 
-## 9. Idea F - Minimum-Disruption Replanning
+Mentor consultation records are pending. The table below will be completed with actual feedback and resulting decisions.
 
-### Concept
+| Date | Mentor | Feedback Received | What Was Changed |
+| --- | --- | --- | --- |
+| Pending | Pending | Record actual feedback after consultation. | Record changes made, or explain why feedback was not adopted. |
 
-When a disruption occurs, the system repairs the itinerary instead of generating a completely new one.
+Consultation should explore whether the family use case is focused enough, whether the parent experience is simple, whether remote and in-person responsibilities are clear, and whether the initial prototype scope is feasible.
 
-### Protected information
+## 3. Design & Prototype
 
-- Completed activities
-- Confirmed bookings
-- Hard constraints
-- Remaining group and personal budgets
-- Must-have experiences
-- Meeting commitments
-- Decisions already accepted by the group
+### Design Intent
 
-### Example output
+**Parents see the next step. Their children handle the planning detail.** The parent's home screen answers three questions: Where am I going? When should I leave? How much walking is involved? Checking in takes one tap from that screen. Asking for rest takes two taps and requires no typing.
 
-```text
-Changed
-- Beach moved to tomorrow morning
-- Indoor museum moved to 2:30 PM
-- Bus replaced with Grab: +RM7/person
+The design uses large text, clearly labelled actions, generous spacing, and a consistent three-item navigation: **Today**, **My day**, and **Family**. Parents retain control of sharing and can accept or decline itinerary suggestions. The interface uses English throughout.
 
-Preserved
-- Night market
-- Halal dinner
-- Return before 8:00 PM
-- Total budget remains below RM250
-```
+![Desktop prototype showing the parent interface beside a short demonstration guide](docs/screenshots/00-prototype-overview.png)
 
-### Decision
+The desktop preview places a demonstration guide beside the app. On a phone, the guide disappears and the app occupies the available width. The role switch and simulation notice belong to the prototype presentation, not the proposed parent's everyday interface.
 
-Retain as an important supporting feature. The prototype only needs one convincing disruption scenario rather than complete real-time travel coverage.
+### Open the Interactive Prototype
 
-## 10. Idea G - ParallelTrip
+**Prototype entry file:** [prototype/index.html](prototype/index.html)
 
-### Core insight
+Download or clone this repository, then open `prototype/index.html` in a browser. Keep `index.html`, `styles.css`, and `app.js` together in the `prototype` folder. No installation, account, or API key is needed. GitHub displays HTML as source, so use the downloaded file to interact; the screenshots below can be reviewed directly on GitHub.
 
-Most group planners assume that one group needs one itinerary. In reality, forcing everyone into the same schedule creates unnecessary compromise. ParallelTrip determines when the group should be together, when it can separate, and how everyone can reunite without coordination stress.
+The prototype is local and has no public deployment URL. State is shared between the two preview roles within the same page and resets on refresh or **Reset demo**. It does not synchronise separate devices.
 
-### One-sentence concept
+### How Users Operate the App
 
-> ParallelTrip converts a group discussion into synchronized personal or subgroup itineraries organized around shared anchor moments.
+| Stage | Parent's Actions | Adult Child's Actions |
+| --- | --- | --- |
+| Prepare | Review preferences together; choose what to share. | Enter a budget and walking preference, review with the parent, and confirm. |
+| Start the day | Open Today to see the next place, departure time, and walking estimate. | Open Overview to see the plan and available updates. |
+| Check in | Tap **I am okay** and read the confirmation. | See the update in Family view, without requiring location access. |
+| Need assistance | Tap **I need help**, then choose rest, delay, or contact. | Read the actual request and contact the parent when needed. |
+| Adjust the itinerary | Review Anna's suggestion; accept it or keep the original plan. | Suggest a shorter walk and wait for the parent's decision. |
+| Manage privacy | Open **Family**, choose a sharing level, and save. | See only the status and location information permitted by the parent. |
 
-### Planning model
+### Key Screens
 
-```text
-Shared breakfast
-       |
-       +----------------------+----------------------+
-       |                                             |
-Adventure track                               Relaxed track
-Hiking and nature                             Cafe and museum
-Amy and Ben                                   Chloe and Dan
-       |                                             |
-       +----------------------+----------------------+
-                              |
-                  AI-optimized reunion point
-                              |
-                       Shared halal lunch
-```
+These are screenshots of the implemented interface, not generated mockups. All names, times, venue details, and travel estimates are demonstration data. Select an image to inspect it at full size.
 
-### Key concepts
+| 01 · Parent home | 02 · Ask for help |
+| --- | --- |
+| [<img src="docs/screenshots/01-parent-today.png" alt="Parent home with the next destination, departure time, walking estimate, check-in button and help button" width="300">](docs/screenshots/01-parent-today.png) | [<img src="docs/screenshots/02-parent-help.png" alt="Four labelled assistance choices for rest, delay, calling a daughter, or requesting immediate help" width="300">](docs/screenshots/02-parent-help.png) |
+| The next stop is prominent. **I am okay** needs one tap, with a visible confirmation. | Parents select familiar phrases instead of composing a message. Call actions are previews only. |
 
-#### Shared anchors
+| 03 · Family overview | 04 · Parent reviews a suggestion |
+| --- | --- |
+| [<img src="docs/screenshots/03-family-overview.png" alt="Family overview showing a request for rest, location not shared, and a declined itinerary suggestion" width="300">](docs/screenshots/03-family-overview.png) | [<img src="docs/screenshots/04-parent-change.png" alt="Comparison of museum and cafe plans, with accept and keep-original-plan actions" width="300">](docs/screenshots/04-parent-change.png) |
+| The family sees the meaning of an update and respects a declined suggestion. A location is not required for a rest request. | The parent compares walking and cost estimates. The lunch meeting is preserved, and either decision is available. |
 
-Activities everyone wants or needs to attend, such as a booked dinner, hotel check-in, transport departure, or sunset experience.
+| 05 · Sharing choices | 06 · Prepare together |
+| --- | --- |
+| [<img src="docs/screenshots/05-parent-sharing.png" alt="Parent-controlled sharing options ranging from nothing to exact location, with an explicit save button" width="300">](docs/screenshots/05-parent-sharing.png) | [<img src="docs/screenshots/06-family-prepare.png" alt="Family preparation form with the sample destination, budget, walking preference and review button" width="300">](docs/screenshots/06-family-prepare.png) |
+| Full-row choices explain what Anna can see. Selecting an option does not save it until the parent presses **Save my choice**. | The family handles form entry. A separate review step precedes confirmation; the sample destination is fixed to Penang. |
 
-#### Fork windows
+### Reviewer Walkthrough
 
-Periods when the group can safely separate based on different interests, budgets, mobility, pace, or energy.
+1. Open the prototype and select **Reset demo**. The page starts in **Parent view** as Mei.
+2. Press **I am okay**. A confirmation appears. Select **Family view** to see the same check-in as Anna.
+3. Return to **Parent view**. Select **I need help**, then **I need a rest**. The confirmation distinguishes sharing a request from the recipient having read it.
+4. Select **Family view**, then **Suggest a shorter walk**. Review the museum-to-cafe comparison and select **Send suggestion to Mum**.
+5. Return to **Parent view**, select **Anna suggested a change**, then **Accept this change**. The next activity updates to Garden Cafe. Alternatively, select **Keep my original plan** and inspect the declined status in Family view.
+6. In Parent view, open **Family**, choose **Nothing for now**, and save. Family view now states that sharing is off instead of showing current personal updates.
+7. Select **Reset demo** to try a separate scenario. In Family view, expand **Prototype scenario controls** and choose an old location update or an offline parent. These controls explicitly create fictional conditions for review.
 
-#### Parallel tracks
+Additional exploration: select **Prepare** in Family view to edit and confirm preferences. Select **Larger text** on the parent's home screen to move through 120%, 200%, and standard app text sizes.
 
-Different mini-itineraries generated for individuals or subgroups. Each track has its own route, cost, timing, and activities.
-
-#### Optimized reunion points
-
-Meeting locations selected using travel time, cost, accessibility, dietary requirements, opening hours, delay risk, and the next shared activity.
-
-#### Buddy and safety constraints
-
-Rules such as "nobody travels alone," "a child must remain with a parent," or "this member requires an accessible route."
-
-#### Live track switching
-
-A traveller can move to a different track. The system explains the transport route, timing, ticket consequences, and whether anyone would be left alone.
-
-#### Cross-track disruption recovery
-
-If one subgroup is delayed, the system adjusts the reunion or gives the other subgroup a short nearby activity without rebuilding the entire trip.
-
-### Why it is different
-
-Conventional group planners try to find one option everyone will tolerate. ParallelTrip treats temporary separation as a valid planning tool and automatically coordinates the reunion. The distinctive combination is:
-
-- Natural group discussion as input
-- Automatic detection of incompatible preferences
-- AI-generated subgroup formation
-- Synchronized parallel itineraries
-- Optimized reunion locations and times
-- Safety and buddy rules
-- Live cross-track replanning
-
-### Risks
-
-- The product must not make splitting up feel antisocial
-- Subgroup recommendations must respect safety and accessibility
-- Route and ETA calculations need reliable map data
-- The team must avoid building a full booking platform during the prototype phase
-
-## 11. Overall Recommendation
-
-### Chosen concept
-
-**ParallelTrip with Living Trip Memory and minimum-disruption recovery**
-
-The final concept should not combine every explored feature equally. Its hierarchy should remain clear:
-
-1. **Core innovation:** synchronized split-and-reunite itineraries
-2. **Input method:** group discussion and private preference capture
-3. **Intelligence layer:** confirmed constraints and decision memory
-4. **Supporting mechanism:** conflict explanation and decision cards
-5. **Recovery mechanism:** minimum-disruption replanning
-6. **Infrastructure:** map, ETA, estimated costs, and reminders
-
-### Final value proposition
-
-> Other travel planners ask, "What can everyone tolerate doing together?" ParallelTrip determines when the group should be together, when members should follow different experiences, and how they can reunite effortlessly.
-
-### Recommended target group
-
-Start with groups of **3-6 budget-conscious university students planning short trips**. This target has clear budget conflicts, different interests, transport constraints, and a familiar group-chat planning problem. Couples, families, and solo travellers can be future markets, but they should not weaken the initial pitch.
-
-## 12. Recommended Prototype Story
-
-Use one destination and one group throughout the prototype.
-
-### Scenario
-
-Four university students are planning a two-day Penang trip:
-
-- Amy has a maximum budget of RM250
-- Ben wants to hike
-- Chloe has an injured ankle
-- Dan wants street photography
-- Nobody wants to travel alone
-- Everyone wants halal lunch and the sunset together
-
-### Six-screen core flow
-
-1. **Create the trip** - destination, dates, group, and budget
-2. **Group discussion** - members describe preferences naturally
-3. **Trip Memory** - AI asks members to confirm extracted constraints
-4. **Conflict insight** - AI explains why one shared route performs poorly
-5. **Parallel plan** - two tracks appear on the map and converge at lunch
-6. **Disruption recovery** - rain delays one track and AI resynchronizes the reunion
-
-### Success indicators displayed in the prototype
-
-- Hard constraints satisfied
-- Personal and group cost
-- Time spent together versus in subgroup tracks
-- Estimated walking and travel time
-- Reunion confidence or delay risk
-- Number of unresolved decisions
-
-## 13. MVP Scope
-
-### Build for the prototype
-
-- One destination dataset
-- One scripted group scenario
-- Group discussion interface
-- AI extraction into structured constraints
-- Confirm or correct extracted requirements
-- Two generated parallel tracks
-- Map visualization with one reunion point
-- Cost and ETA comparison
-- One disruption and resynchronization flow
-- Clear explanation of what changed and why
-
-### Mock or defer
-
-- Real booking and payment
-- Worldwide destination coverage
-- Continuous live flight monitoring
-- Production-grade WhatsApp or Telegram integration
-- Automated refunds or cancellations
-- Complex expense settlement
-- Full notification system
-- Unlimited dynamic subgroup combinations
-
-## 14. Technical Principle
-
-Use the language model for understanding and explanation, not as the source of factual truth.
-
-```text
-Group messages
-    |
-Language model extracts proposed constraints and preferences
-    |
-Users confirm or correct important facts
-    |
-Constraint and scheduling engine creates anchors and fork windows
-    |
-Map/place data provides routes, ETA, and location information
-    |
-Optimizer generates synchronized parallel tracks
-    |
-Language model explains the result and proposed changes
-```
-
-Costs, opening hours, travel times, locked bookings, and hard-constraint validation should come from structured data or deterministic logic wherever possible.
-
-## 15. Presentation Positioning
-
-### Problem hook
-
-> Group travel does not fail because people lack recommendations. It fails because people want different experiences but traditional planners force them into one schedule.
-
-### Product pitch
-
-> ParallelTrip turns a messy group conversation into coordinated shared and personal experiences. It protects the moments everyone wants together, creates synchronized routes when preferences conflict, and brings everyone back together at the right place and time.
-
-### Differentiation statement
-
-Avoid claiming that this is the first idea of its kind. A defensible statement is:
-
-> Unlike conventional group planners that produce one shared itinerary, ParallelTrip generates synchronized subgroup experiences around optimized reunion points.
-
-## 16. Next Validation Questions
-
-Before finalizing the concept, test these assumptions with potential student travellers and a mentor:
-
-1. Are groups comfortable separating during a trip?
-2. What activities must always remain shared?
-3. What makes a reunion point feel safe and convenient?
-4. Would users trust AI to form subgroups automatically, or should they confirm them?
-5. Which matters most during replanning: budget, preserving booked activities, or arriving together?
-6. Does a split-and-reunite plan reduce conflict compared with voting on one itinerary?
-
-The answers should determine whether ParallelTrip remains the final direction or requires another iteration.
+### Design Research and Its Application
+
+The design draws on accessibility standards and published usability research rather than treating all older adults as having the same abilities. These sources inform design decisions; they do not replace usability testing with our target families.
+
+| Evidence or Guidance | Application in This Prototype |
+| --- | --- |
+| [W3C WAI: Older Users and Web Accessibility](https://www.w3.org/WAI/older-users/) describes overlapping needs involving vision, motor control, and cognition. | A clear next activity, familiar action labels, spacious controls, and stable navigation reduce effort without removing the parent's choices. |
+| [Nielsen Norman Group: Usability for Older Adults](https://www.nngroup.com/articles/usability-for-senior-citizens/) reports research with older users and identifies problems such as small targets and difficult-to-read interfaces. | The parent experience avoids icon-only actions, hidden gesture controls, and typing for common assistance requests. |
+| [WCAG 2.2, SC 2.5.5: Target Size Enhanced](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html) specifies 44 by 44 CSS pixels, subject to exceptions, at Level AAA. | The three primary home actions are at least 60px high. The text-size control is 48px high, and sharing choices use large clickable labels. These are product choices, not a claim of full AAA conformance. |
+| [WCAG 2.2, SC 1.4.3: Contrast Minimum](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) requires at least 4.5:1 for ordinary text and 3:1 for qualifying large text. | Measured token pairs include white on the primary green at 9.79:1, body text on white at 12.21:1, and secondary text on white at 6.04:1. Statuses also use words, not colour alone. |
+| [WCAG 2.2, SC 1.4.4: Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html) addresses text enlargement up to 200% without losing content or functionality. | Parent app text starts at 20px with relative sizing and can be enlarged to 40px. Layouts wrap instead of requiring fixed-height text containers. |
+
+The 20px starting size and 60px primary buttons are our design decisions; WCAG does not prescribe a universal body font size. The dark green identifies primary actions, while a red label and border distinguish assistance. Neither colour is the only cue. Controls use native buttons and form elements, visible keyboard focus, and live status announcements.
+
+### Validation and Current Limits
+
+| Check | Result |
+| --- | --- |
+| Check-in and rest request | Clicked through both roles; the family sees the simulated update. |
+| Accept or decline an itinerary suggestion | Both paths checked. Acceptance updates the parent itinerary; declining preserves it. |
+| Arrival check-in | The confirmation preserves **I have arrived** rather than converting it to a generic wellbeing message. |
+| Stop sharing | Family overview shows sharing off and hides current status and location. |
+| Offline and stale-location scenarios | Offline check-ins do not report success. Old location data shows its timestamp and an unknown cause. |
+| Preparation | Edited the budget, reviewed it, and confirmed that the family overview reflects the saved preference. |
+| Responsive layout | Inspected mobile layouts at 320px, 390px, and 430px widths and a desktop layout at 1440px. |
+| Text enlargement | Checked parent home, help, and sharing at 200% app text on a 320px viewport, with no horizontal overflow detected. |
+| Basic technical checks | JavaScript syntax checked; inspected browser logs contained no warnings or errors during the checked session. |
+
+This is a functional interface demonstration, not a deployed travel service or a completed accessibility audit. AI extraction, real notifications, calls, GPS, route deviation detection, navigation, accounts, bookings, and cross-device synchronisation are not connected. The offline control simulates an unavailable connection; it is not an offline caching implementation. The sample clock and itinerary do not advance automatically. Accessibility, travel-time, and cost information still needs verification for real trips.
+
+Next, test the core tasks with parents aged 60+ and adult children: finding the next activity, checking in, requesting rest, declining a change, and stopping sharing. Observe assistance needed, mistaken taps, task completion, and understanding of status messages before claiming that the design is easy for this audience.

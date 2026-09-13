@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#124c45">
+  <title>Senior Travel Companion | Interactive Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#screen">Skip to app</a>
+  <header class="demo-header">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">sc</span><div>Senior Travel Companion<small>INTERACTIVE DESIGN PROTOTYPE</small></div></div>
+    <div class="role-switch" aria-label="Preview role">
+      <button data-role="parent" aria-pressed="true">Parent view</button>
+      <button data-role="child" aria-pressed="false">Family view</button>
+    </div>
+    <button class="reset" id="reset">Reset demo</button>
+  </header>
+  <div class="demo-note">Sample trip &amp; simulated updates. No messages, calls, location tracking, or bookings are sent.</div>
+  <div class="workspace">
+    <aside class="context">
+      <p class="eyebrow">PENANG FAMILY TRIP</p>
+      <h1>A little support.<br>A lot of independence.</h1>
+      <p>One clear next step for Mum.<br>Useful context for her family.</p>
+      <div class="people"><span class="avatar">ML</span><span class="avatar secondary">AL</span><div><strong>Mei &amp; Anna</strong><small>Mother travelling · Daughter at home</small></div></div>
+      <div class="guide">
+        <p class="eyebrow">TRY THE JOURNEY</p>
+        <ol><li>Send a check-in as Mei.</li><li>Ask for a rest.</li><li>Switch to Family view.</li><li>Suggest a shorter walk.</li><li>Return to Mei to accept it.</li></ol>
+        <p>Sharing stays Mei's choice. Open <strong>Family</strong> in her app to try it.</p>
+      </div>
+      <p class="context-foot">Designed around clear language,<br>comfortable touch targets, and control.</p>
+    </aside>
+    <section class="app-shell" aria-label="Travel app prototype">
+      <div class="app-brand"><strong>companion<span aria-hidden="true">.</span></strong><span>Penang · Day 2 of 3</span></div>
+      <main id="screen" tabindex="-1"></main>
+      <nav id="app-nav" aria-label="App navigation"></nav>
+    </section>
+  </div>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
