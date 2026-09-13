@@ -2,9 +2,9 @@
 
 A travel assistance app for adult children who cannot personally accompany their older parents on a trip.
 
-This document covers **2. Ideation & Process** and **3. Design & Prototype** from the Submission Template. The product capabilities remain proposals; Section 3 presents a working interface prototype with simulated data. It has not yet been validated with older users.
+This document covers **2. Ideation & Process** and **3. Design & Prototype** from the Submission Template. The product capabilities remain proposals; Section 3 presents a visual UI prototype with sample data and basic screen navigation. It has not yet been validated with older users.
 
-**Review the design:** [Design and prototype](#3-design--prototype) · [Key screens](#key-screens) · [Reviewer walkthrough](#reviewer-walkthrough)
+**Review the design:** [Design and prototype](#3-design--prototype) · [Key screens](#key-screens) · [Preview route](#preview-route)
 
 ## 2. Ideation & Process
 
@@ -30,6 +30,10 @@ The initial draft explored general travel planning, ParallelTrip group itinerari
 
 | Idea | Decision | Reason for Keeping, Adapting, or Deferring |
 | --- | --- | --- |
+| **AI Senior Tour Matcher (Chosen)** | Add to the core direction | Uses a parent profile to present suitable tour options with clear trade-offs. The UI currently uses fixed sample matches. |
+| **Tour Trust Profile (Chosen)** | Add to the core direction | Makes guide, licence, insurance, hotel, transport, and safety information visible, including missing information and verification status. |
+| **AI Senior Travel Advisor and Suitability Score (Chosen)** | Add to the core direction | Combines parent, tour, guide, itinerary, and safety information into an explainable suitability assessment. It is not a safety guarantee. |
+| **Smart Safety Alerts to Guide and Child (Chosen)** | Add as a visual concept | Shows route deviation, overdue check-in, and SOS scenarios with guide and child recipients. Detection and delivery are not implemented. |
 | **Parent travel with remote family support (Chosen)** | Core direction | Serves families who cannot travel together, connecting preparation, trip awareness, and assistance when something changes. |
 | **Shared family trip space and authorised contacts (Chosen)** | Keep | Connects parents, children, and relevant contacts to one itinerary, with roles and information permissions managed separately. |
 | **AI requirement extraction with user confirmation (Chosen)** | Keep | Organises budget, interests, dietary needs, walking limits, and rest preferences from discussions. Users confirm, edit, or reject suggestions before they become decisions. |
@@ -149,94 +153,66 @@ Consultation should explore whether the family use case is focused enough, wheth
 
 ## 3. Design & Prototype
 
-### Design Intent
+**UI concept only.** All screens are in English. Tours, profiles, scores, credentials, and alerts are illustrative. This version focuses on visual design and basic screen navigation, with no backend or live services.
 
-**Parents see the next step. Their children handle the planning detail.** The parent's home screen answers three questions: Where am I going? When should I leave? How much walking is involved? Checking in takes one tap from that screen. Asking for rest takes two taps and requires no typing.
+### Open the Prototype
 
-The design uses large text, clearly labelled actions, generous spacing, and a consistent three-item navigation: **Today**, **My day**, and **Family**. Parents retain control of sharing and can accept or decline itinerary suggestions. The interface uses English throughout.
+Open [prototype/index.html](prototype/index.html) after downloading the repository. Keep all four files in the `prototype` folder together. No installation is needed. GitHub shows HTML as source; download it to view the interface.
 
-![Desktop prototype showing the parent interface beside a short demonstration guide](docs/screenshots/00-prototype-overview.png)
+### Screens Included
 
-The desktop preview places a demonstration guide beside the app. On a phone, the guide disappears and the app occupies the available width. The role switch and simulation notice belong to the prototype presentation, not the proposed parent's everyday interface.
-
-### Open the Interactive Prototype
-
-**Prototype entry file:** [prototype/index.html](prototype/index.html)
-
-Download or clone this repository, then open `prototype/index.html` in a browser. Keep `index.html`, `styles.css`, and `app.js` together in the `prototype` folder. No installation, account, or API key is needed. GitHub displays HTML as source, so use the downloaded file to interact; the screenshots below can be reviewed directly on GitHub.
-
-The prototype is local and has no public deployment URL. State is shared between the two preview roles within the same page and resets on refresh or **Reset demo**. It does not synchronise separate devices.
-
-### How Users Operate the App
-
-| Stage | Parent's Actions | Adult Child's Actions |
-| --- | --- | --- |
-| Prepare | Review preferences together; choose what to share. | Enter a budget and walking preference, review with the parent, and confirm. |
-| Start the day | Open Today to see the next place, departure time, and walking estimate. | Open Overview to see the plan and available updates. |
-| Check in | Tap **I am okay** and read the confirmation. | See the update in Family view, without requiring location access. |
-| Need assistance | Tap **I need help**, then choose rest, delay, or contact. | Read the actual request and contact the parent when needed. |
-| Adjust the itinerary | Review Anna's suggestion; accept it or keep the original plan. | Suggest a shorter walk and wait for the parent's decision. |
-| Manage privacy | Open **Family**, choose a sharing level, and save. | See only the status and location information permitted by the parent. |
+| Feature | UI Coverage |
+| --- | --- |
+| AI Senior Tour Matcher | Parent summary, tour cards, pace and budget filters, sample match scores. |
+| Parent Profile | Age, walking comfort, rest frequency, language, budget, and travel preferences. |
+| Tour Trust Profile | Guide information, licence, operator registration, insurance, hotel, transport, safety plan, source and review status. |
+| AI Senior Travel Advisor | Five information inputs, illustrative suitability score, match breakdown, strengths and questions to clarify. |
+| Child Dashboard | Current itinerary, sample status, next meeting, guide contact and safety centre. |
+| Senior Simple Mode | Next stop, meeting reminder, I'm OK, guide contact and SOS/help. |
+| Smart Safety Alerts | Off-route, no-response and SOS screens, with guide and child recipient states. |
 
 ### Key Screens
 
-These are screenshots of the implemented interface, not generated mockups. All names, times, venue details, and travel estimates are demonstration data. Select an image to inspect it at full size.
+These screenshots show mobile viewports. Select an image to enlarge it; scroll within the prototype for additional details.
 
-| 01 · Parent home | 02 · Ask for help |
+| Tour matching | Parent profile |
 | --- | --- |
-| [<img src="docs/screenshots/01-parent-today.png" alt="Parent home with the next destination, departure time, walking estimate, check-in button and help button" width="300">](docs/screenshots/01-parent-today.png) | [<img src="docs/screenshots/02-parent-help.png" alt="Four labelled assistance choices for rest, delay, calling a daughter, or requesting immediate help" width="300">](docs/screenshots/02-parent-help.png) |
-| The next stop is prominent. **I am okay** needs one tap, with a visible confirmation. | Parents select familiar phrases instead of composing a message. Call actions are previews only. |
+| [<img src="docs/screenshots/v2-01-matcher.png" alt="Tour matching cards with sample suitability scores" width="280">](docs/screenshots/v2-01-matcher.png) | [<img src="docs/screenshots/v2-08-profile.png" alt="Parent profile with walking comfort, language and travel preferences" width="280">](docs/screenshots/v2-08-profile.png) |
+| Short tour summaries and visible match scores. | Preferences are grouped into simple choices. |
 
-| 03 · Family overview | 04 · Parent reviews a suggestion |
+| Tour details | Tour trust profile |
 | --- | --- |
-| [<img src="docs/screenshots/03-family-overview.png" alt="Family overview showing a request for rest, location not shared, and a declined itinerary suggestion" width="300">](docs/screenshots/03-family-overview.png) | [<img src="docs/screenshots/04-parent-change.png" alt="Comparison of museum and cafe plans, with accept and keep-original-plan actions" width="300">](docs/screenshots/04-parent-change.png) |
-| The family sees the meaning of an update and respects a declined suggestion. A location is not required for a rest request. | The parent compares walking and cost estimates. The lunch meeting is preserved, and either decision is available. |
+| [<img src="docs/screenshots/v2-02-tour.png" alt="Tour details with walking time, guide language, itinerary and price" width="280">](docs/screenshots/v2-02-tour.png) | [<img src="docs/screenshots/v2-04-trust.png" alt="Guide, licence, insurance, hotel, transport and safety information" width="280">](docs/screenshots/v2-04-trust.png) |
+| The trip's important details appear before the next action. | Expand a row to see sources and information that needs confirmation. |
 
-| 05 · Sharing choices | 06 · Prepare together |
+| AI travel advisor | Child dashboard |
 | --- | --- |
-| [<img src="docs/screenshots/05-parent-sharing.png" alt="Parent-controlled sharing options ranging from nothing to exact location, with an explicit save button" width="300">](docs/screenshots/05-parent-sharing.png) | [<img src="docs/screenshots/06-family-prepare.png" alt="Family preparation form with the sample destination, budget, walking preference and review button" width="300">](docs/screenshots/06-family-prepare.png) |
-| Full-row choices explain what Anna can see. Selecting an option does not save it until the parent presses **Save my choice**. | The family handles form entry. A separate review step precedes confirmation; the sample destination is fixed to Penang. |
+| [<img src="docs/screenshots/v2-03-advisor.png" alt="Illustrative suitability score and match breakdown" width="280">](docs/screenshots/v2-03-advisor.png) | [<img src="docs/screenshots/v2-05-dashboard.png" alt="Child dashboard showing trip status and guide contact" width="280">](docs/screenshots/v2-05-dashboard.png) |
+| Suitability is explained separately from credential verification. | Status, itinerary, meeting place and contact actions stay together. |
 
-### Reviewer Walkthrough
-
-1. Open the prototype and select **Reset demo**. The page starts in **Parent view** as Mei.
-2. Press **I am okay**. A confirmation appears. Select **Family view** to see the same check-in as Anna.
-3. Return to **Parent view**. Select **I need help**, then **I need a rest**. The confirmation distinguishes sharing a request from the recipient having read it.
-4. Select **Family view**, then **Suggest a shorter walk**. Review the museum-to-cafe comparison and select **Send suggestion to Mum**.
-5. Return to **Parent view**, select **Anna suggested a change**, then **Accept this change**. The next activity updates to Garden Cafe. Alternatively, select **Keep my original plan** and inspect the declined status in Family view.
-6. In Parent view, open **Family**, choose **Nothing for now**, and save. Family view now states that sharing is off instead of showing current personal updates.
-7. Select **Reset demo** to try a separate scenario. In Family view, expand **Prototype scenario controls** and choose an old location update or an offline parent. These controls explicitly create fictional conditions for review.
-
-Additional exploration: select **Prepare** in Family view to edit and confirm preferences. Select **Larger text** on the parent's home screen to move through 120%, 200%, and standard app text sizes.
-
-### Design Research and Its Application
-
-The design draws on accessibility standards and published usability research rather than treating all older adults as having the same abilities. These sources inform design decisions; they do not replace usability testing with our target families.
-
-| Evidence or Guidance | Application in This Prototype |
+| Senior simple mode | Smart safety alerts |
 | --- | --- |
-| [W3C WAI: Older Users and Web Accessibility](https://www.w3.org/WAI/older-users/) describes overlapping needs involving vision, motor control, and cognition. | A clear next activity, familiar action labels, spacious controls, and stable navigation reduce effort without removing the parent's choices. |
-| [Nielsen Norman Group: Usability for Older Adults](https://www.nngroup.com/articles/usability-for-senior-citizens/) reports research with older users and identifies problems such as small targets and difficult-to-read interfaces. | The parent experience avoids icon-only actions, hidden gesture controls, and typing for common assistance requests. |
-| [WCAG 2.2, SC 2.5.5: Target Size Enhanced](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html) specifies 44 by 44 CSS pixels, subject to exceptions, at Level AAA. | The three primary home actions are at least 60px high. The text-size control is 48px high, and sharing choices use large clickable labels. These are product choices, not a claim of full AAA conformance. |
-| [WCAG 2.2, SC 1.4.3: Contrast Minimum](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) requires at least 4.5:1 for ordinary text and 3:1 for qualifying large text. | Measured token pairs include white on the primary green at 9.79:1, body text on white at 12.21:1, and secondary text on white at 6.04:1. Statuses also use words, not colour alone. |
-| [WCAG 2.2, SC 1.4.4: Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html) addresses text enlargement up to 200% without losing content or functionality. | Parent app text starts at 20px with relative sizing and can be enlarged to 40px. Layouts wrap instead of requiring fixed-height text containers. |
+| [<img src="docs/screenshots/v2-07-parent.png" alt="Simplified parent home with next stop, I'm OK, call guide and SOS buttons" width="280">](docs/screenshots/v2-07-parent.png) | [<img src="docs/screenshots/v2-06-alerts.png" alt="Simulated SOS alert with guide and daughter recipients" width="280">](docs/screenshots/v2-06-alerts.png) |
+| Short labels, a clear next stop and large actions. | Three selectable scenarios show who would receive an alert. |
 
-The 20px starting size and 60px primary buttons are our design decisions; WCAG does not prescribe a universal body font size. The dark green identifies primary actions, while a red label and border distinguish assistance. Neither colour is the only cue. Controls use native buttons and form elements, visible keyboard focus, and live status announcements.
+### Preview Route
 
-### Validation and Current Limits
+1. Start in **Family view**. Open a tour from **Discover**.
+2. Select **Why this score** to preview the advisor, or **Tour trust profile** to inspect the information rows.
+3. Open **My trip** for the sample Penang dashboard, and **Alerts** for the three safety scenarios.
+4. Switch to **Parent view** for the simplified home. Open **SOS / Help**, **My day**, or **Contacts**.
+5. On desktop, the left navigation provides shortcuts to the six main concepts.
 
-| Check | Result |
-| --- | --- |
-| Check-in and rest request | Clicked through both roles; the family sees the simulated update. |
-| Accept or decline an itinerary suggestion | Both paths checked. Acceptance updates the parent itinerary; declining preserves it. |
-| Arrival check-in | The confirmation preserves **I have arrived** rather than converting it to a generic wellbeing message. |
-| Stop sharing | Family overview shows sharing off and hides current status and location. |
-| Offline and stale-location scenarios | Offline check-ins do not report success. Old location data shows its timestamp and an unknown cause. |
-| Preparation | Edited the budget, reviewed it, and confirmed that the family overview reflects the saved preference. |
-| Responsive layout | Inspected mobile layouts at 320px, 390px, and 430px widths and a desktop layout at 1440px. |
-| Text enlargement | Checked parent home, help, and sharing at 200% app text on a 320px viewport, with no horizontal overflow detected. |
-| Basic technical checks | JavaScript syntax checked; inspected browser logs contained no warnings or errors during the checked session. |
+### Visual Direction
 
-This is a functional interface demonstration, not a deployed travel service or a completed accessibility audit. AI extraction, real notifications, calls, GPS, route deviation detection, navigation, accounts, bookings, and cross-device synchronisation are not connected. The offline control simulates an unavailable connection; it is not an offline caching implementation. The sample clock and itinerary do not advance automatically. Accessibility, travel-time, and cost information still needs verification for real trips.
+- Smaller, consistent headings and less bold text reduce visual competition.
+- Family screens use compact cards; parent screens retain larger text and touch targets.
+- Repeated explanations are removed. Additional trust information is expandable.
+- The parent homepage keeps its main actions visible at the checked 390px mobile width.
+- Statuses use text as well as colour. Controls retain visible keyboard focus.
 
-Next, test the core tasks with parents aged 60+ and adult children: finding the next activity, checking in, requesting rest, declining a change, and stopping sharing. Observe assistance needed, mistaken taps, task completion, and understanding of status messages before claiming that the design is easy for this audience.
+The design continues to draw on [W3C's older-user guidance](https://www.w3.org/WAI/older-users/), [WCAG target-size guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html), and [NN/g's older-adult usability research](https://www.nngroup.com/articles/usability-for-senior-citizens/). It has not been validated with older users or audited for full accessibility conformance.
+
+### Prototype Boundaries
+
+This is a screen design, not a functional service. Profile edits do not recalculate scores, tour browsing does not book or enrol a traveller, and the active-trip preview remains a sample Penang journey. Alert detection, delivery, acknowledgement, reminders, GPS, AI scoring, calls and credential verification are not connected. Refreshing or resetting returns to the sample state.
